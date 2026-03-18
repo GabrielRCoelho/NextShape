@@ -1,0 +1,81 @@
+body{
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #1a1a1a;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0a0a0a;
+    position: relative;
+}
+
+.header-logo h1{
+    color: rgb(15, 214, 15);
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+    padding-left: 15px;
+}
+
+.header-logo a{
+    text-decoration: none;
+}
+
+.icon{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.header-icons{
+    display: flex;
+    gap: 20px;
+    padding-right: 15px;
+}
+
+.button{
+    background-color: rgb(15, 214, 15);
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 20px;
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.button:hover{
+    background-color: rgb(10, 180, 10);
+}
+
+.hero{
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(assets/images/academia.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 50vh;
+    display: flex;
+    align-items: center;
+}
+
+.hero-content{
+    padding-left: 15px;
+    color: white;
+    max-width: 250px;
+}
+
+.hero-content h2{
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.hero-content p{
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.highlight-performance{
+    color: rgb(15, 214, 15);
+}
