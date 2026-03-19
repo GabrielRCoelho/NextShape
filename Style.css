@@ -52,12 +52,12 @@ header{
 }
 
 .hero{
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(assets/images/academia.jpg);
     background-size: cover;
     background-position: center;
     height: 50vh;
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .hero-content{
@@ -78,4 +78,22 @@ header{
 
 .highlight-performance{
     color: rgb(15, 214, 15);
+}
+
+.hero-dot{
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.dot{
+    width: 12px;
+    height: 12px;
+    background-color: grey;
+    border-radius: 50%;
+    opacity: 0.5;
+    cursor: pointer;
 }
