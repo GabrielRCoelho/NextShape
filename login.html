@@ -8,24 +8,27 @@
     <title>NextShape</title>
 </head>
 <body>
-
     <header>
         <div class="header-logo">
             <a href="#">
                 <h1>NextShape</h1>
             </a>
         </div>
-
         <div class="header-icons">
             <a href="#"><img class="icon" src="assets/icons/search.svg" alt="Pesquisar"></a>
             <a href="#"><img class="icon" src="assets/icons/cart.svg" alt="Carrinho"></a>
             <a href="#"><img class="icon" src="assets/icons/user.svg" alt="Login"></a>
         </div>
     </header>
-    <div class="forms-login">
-        <button class="botao fazer-login">Já tenho conta</button>
-        <button class="botao fazer-cadastro">Criar Conta</button>
-    </div>
-    
+<main class="area-login">
+    <h2 class="titulo-acesso">ÁREA DE ACESSO</h2>   
+    <form class="forms-login">       
+        <input type="email" id="email" class="input-login" placeholder="E-mail">
+        <input type="password" id="senha" class="input-login" placeholder="Senha">
+        <p id="mensagem-alerta" class="mensagem-oculta"></p> 
+        <button type="button" class="botao fazer-login">Fazer Login</button>
+        <button type="button" class="botao">Criar Conta</button>       
+    </form>
+</main>
 </body>
 </html>
