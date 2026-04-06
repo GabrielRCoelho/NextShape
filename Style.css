@@ -1,10 +1,10 @@
-body{
+body {
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #1a1a1a;
 }
 
-header{
+header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -12,7 +12,7 @@ header{
     position: relative;
 }
 
-.header-logo h1{
+.header-logo h1 {
     color: rgb(15, 214, 15);
     text-decoration: none;
     font-size: 25px;
@@ -20,23 +20,23 @@ header{
     padding-left: 15px;
 }
 
-.header-logo a{
+.header-logo a {
     text-decoration: none;
 }
 
-.icon{
+.icon {
     width: 20px;
     height: 20px;
     cursor: pointer;
 }
 
-.header-icons{
+.header-icons {
     display: flex;
     gap: 20px;
     padding-right: 15px;
 }
 
-.button{
+.button {
     background-color: rgb(15, 214, 15);
     color: white;
     padding: 10px;
@@ -47,11 +47,11 @@ header{
     margin-top: 10px;
 }
 
-.button:hover{
+.button:hover {
     background-color: rgb(10, 180, 10);
 }
 
-.hero{
+.hero {
     background-size: cover;
     background-position: center;
     height: 50vh;
@@ -60,27 +60,27 @@ header{
     position: relative;
 }
 
-.hero-content{
+.hero-content {
     padding-left: 15px;
     color: white;
     max-width: 250px;
 }
 
-.hero-content h2{
+.hero-content h2 {
     font-size: 40px;
     margin-bottom: 10px;
 }
 
-.hero-content p{
+.hero-content p {
     font-size: 20px;
     margin-bottom: 20px;
 }
 
-.highlight-performance{
+.highlight-performance {
     color: rgb(15, 214, 15);
 }
 
-.hero-dot{
+.hero-dot {
     position: absolute;
     bottom: 20px;
     left: 50%;
@@ -89,7 +89,7 @@ header{
     gap: 10px;
 }
 
-.dot{
+.dot {
     width: 12px;
     height: 12px;
     background-color: grey;
@@ -98,14 +98,14 @@ header{
     cursor: pointer;
 }
 
-.categories{
+.categories {
     display: flex;
     justify-content: center;
     gap: 30px;
     padding: 20px 0;
 }
 
-.categories a{
+.categories a {
     background-color: #333;
     color: white;
     text-decoration: none;
@@ -118,11 +118,75 @@ header{
     font-weight: bold;
 }
 
-.categories a:hover{
+.categories a:hover {
     background-color: rgb(75, 75, 75);
 }
 
 
+
+/* Css para o rodapé realizado por Eduardo Alcantara */
+.footer {
+    background-color: #0a0a0a;
+    color: white;
+    padding: 30px 20px 10px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.footer-logo h2 {
+    color: rgb(15, 214, 15);
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.footer-logo p {
+    font-size: 14px;
+    color: #ccc;
+}
+
+.footer-links,
+.footer-contact,
+.footer-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-links h3,
+.footer-contact h3,
+.footer-info h3 {
+    color: rgb(15, 214, 15);
+}
+
+.footer-links a,
+.footer-info a {
+    text-decoration: none;
+    color: #ccc;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.footer-links a:hover,
+.footer-info a:hover {
+    color: rgb(15, 214, 15);
+    transform: translateX(5px);
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    border-top: 1px solid #333;
+    padding-top: 10px;
+    font-size: 12px;
+    color: #aaa;
+}
 
 
 
@@ -130,28 +194,34 @@ header{
 então é legal a gente sempre pensar nela para uma melhor visibilidade
 nos celulares*/
 @media (max-width: 768px) {
-    
-    .hero-content{
+
+    .hero-content {
         padding-left: 20px;
         max-width: 90%;
     }
 
-    .hero-content h2{
+    .hero-content h2 {
         font-size: 30px;
     }
 
-    .hero-content p{
+    .hero-content p {
         font-size: 15px;
     }
 
-    .categories{
+    .categories {
         flex-direction: column;
         align-items: center;
     }
 
-    .categories a{
+    .categories a {
         width: 80%;
         text-align: center;
     }
-    
+
+    /* Rodapé */
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
 }

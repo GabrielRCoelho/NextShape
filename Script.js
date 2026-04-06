@@ -12,13 +12,13 @@ const images = [    // lista de imagens que coloquei no hero banner
 
 
 function changeImage() {
-    hero.style.backgroundImage= `
+    hero.style.backgroundImage = `
         linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
         url(${images[index]})
     `;
 
     index++;
-    if(index >= images.length) {
+    if (index >= images.length) {
         index = 0;
     }
 }
@@ -38,7 +38,7 @@ function updatedots() {
 }
 
 dots.forEach((dot, idx) => {    // Essa função ela adiciona o evento de clickar nos dots
-    dot.addEventListener('click', () => { 
+    dot.addEventListener('click', () => {
         index = idx;
         changeImage();
         updatedots();
