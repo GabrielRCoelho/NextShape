@@ -1,0 +1,39 @@
+<header>
+    <div class="header-logo">
+        <a routerLink="/login">
+            <h1>NextShape</h1>
+        </a>
+    </div>
+    <div class="header-icons">
+        <a href="#"><img class="icon" src="assets/icons/search.svg" alt="Pesquisar"></a>
+        <a href="#"><img class="icon" src="assets/icons/cart.svg" alt="Carrinho"></a>
+        <a routerLink="/perfil"><img class="icon" src="assets/icons/user.svg" alt="Perfil"></a>
+    </div>
+</header>
+
+<main class="area-login">
+    <h2 class="titulo-acesso">MEU PERFIL</h2>
+    
+    <form class="forms-login">
+        
+        <div style="color: white; width: 100%; font-size: 14px; margin-bottom: 10px;">
+            <p><strong>Nome:</strong> {{ usuarioLogado?.nome }}</p>
+            <p><strong>E-mail:</strong> {{ usuarioLogado?.email }}</p>
+        </div>
+
+        <h3 style="color: #0FD60F; font-size: 14px; text-align: left; width: 100%; margin: 0;">Alterar Senha</h3>
+        <input type="password" name="novaSenha" [(ngModel)]="novaSenha" class="input-login" placeholder="Digite a nova senha">
+        
+        <p [class]="tipoMensagem || 'mensagem-oculta'">{{ mensagem }}</p>
+        
+        <button type="button" class="botao fazer-login" style="width: 100%; max-width: none;" (click)="atualizarSenha()">Salvar Nova Senha</button>
+        
+        <hr style="width: 100%; border: 1px solid #333; margin: 10px 0;">
+
+        <div style="display: flex; gap: 10px; width: 100%; justify-content: space-between;">
+            <button type="button" class="botao" style="background-color: #ff4d4d; color: white;" (click)="deletarConta()">Excluir Conta</button>
+            <button type="button" class="botao" (click)="fazerLogout()">Sair</button>
+        </div>
+        
+    </form>
+</main>
