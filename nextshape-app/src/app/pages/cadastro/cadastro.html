@@ -26,6 +26,6 @@
         <p [class]="tipoMensagem || 'mensagem-oculta'">{{ mensagem }}</p>
         
         <button type="button" class="botao fazer-login" (click)="cadastrar()">Cadastrar</button>
-        <button type="button" class="botao" (click)="voltarLogin()">Voltar ao Login</button>
+        <button type="button" class="botao" routerLink="/login">Voltar ao Login</button>
     </form>
 </main>

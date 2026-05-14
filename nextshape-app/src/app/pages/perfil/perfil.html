@@ -1,8 +1,6 @@
 <header>
     <div class="header-logo">
-        <a routerLink="/login">
-            <h1>NextShape</h1>
-        </a>
+        <a routerLink="/"><h1>NextShape</h1></a>
     </div>
     <div class="header-icons">
         <a href="#"><img class="icon" src="assets/icons/search.svg" alt="Pesquisar"></a>
@@ -13,27 +11,27 @@
 
 <main class="area-login">
     <h2 class="titulo-acesso">MEU PERFIL</h2>
-    
-    <form class="forms-login">
+    <div class="forms-login">
         
-        <div style="color: white; width: 100%; font-size: 14px; margin-bottom: 10px;">
-            <p><strong>Nome:</strong> {{ usuarioLogado?.nome }}</p>
-            <p><strong>E-mail:</strong> {{ usuarioLogado?.email }}</p>
-        </div>
+        <!-- Boas-vindas -->
+        <h3 style="color: white; margin-bottom: 0;">Olá, {{ usuario?.nome }}</h3>
+        <p style="color: #ccc; margin-top: 0; font-size: 14px;">{{ usuario?.email }}</p>
 
-        <h3 style="color: #0FD60F; font-size: 14px; text-align: left; width: 100%; margin: 0;">Alterar Senha</h3>
-        <input type="password" name="novaSenha" [(ngModel)]="novaSenha" class="input-login" placeholder="Digite a nova senha">
+        <hr style="width: 100%; border-color: #333;">
+
+        <!-- Área de Alterar Senha -->
+        <input type="password" [(ngModel)]="novaSenha" class="input-login" placeholder="Digite uma nova senha">
+        <button type="button" class="botao fazer-login" style="width: 100%; max-width: 100%;" (click)="alterarSenha()">Atualizar Senha</button>
         
         <p [class]="tipoMensagem || 'mensagem-oculta'">{{ mensagem }}</p>
-        
-        <button type="button" class="botao fazer-login" style="width: 100%; max-width: none;" (click)="atualizarSenha()">Salvar Nova Senha</button>
-        
-        <hr style="width: 100%; border: 1px solid #333; margin: 10px 0;">
 
-        <div style="display: flex; gap: 10px; width: 100%; justify-content: space-between;">
-            <button type="button" class="botao" style="background-color: #ff4d4d; color: white;" (click)="deletarConta()">Excluir Conta</button>
-            <button type="button" class="botao" (click)="fazerLogout()">Sair</button>
+        <hr style="width: 100%; border-color: #333;">
+
+        <!-- Botões de Exclusão e Logout -->
+        <div style="display: flex; gap: 10px; width: 100%;">
+            <button type="button" class="botao" style="background-color: #ff4d4d; color: white; width: 50%; max-width: none;" (click)="deletarConta()">Deletar Conta</button>
+            <button type="button" class="botao" style="width: 50%; max-width: none;" (click)="sair()">Sair</button>
         </div>
-        
-    </form>
+
+    </div>
 </main>

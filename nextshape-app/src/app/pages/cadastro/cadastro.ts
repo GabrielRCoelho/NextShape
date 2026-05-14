@@ -1,81 +1,53 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { UsuarioService } from '../../services/usuario';
+import { Router, RouterLink } from '@angular/router';
+import { UsuarioService } from '../../../services/usuario.service';
 
 @Component({
   selector: 'app-cadastro',
   standalone: true,
-  imports: [CommonModule, FormsModule], // Necessário para o ngModel funcionar
-  templateUrl: './cadastro.component.html',
-  styleUrls: ['./cadastro.component.css']
+  imports: [FormsModule, RouterLink],
+  templateUrl: './cadastro.html',
+  styleUrls: ['./cadastro.css']
 })
 export class CadastroComponent {
-  // Variáveis vinculadas ao HTML
   nome = '';
   email = '';
   senha = '';
   confirmarSenha = '';
-  
   mensagem = '';
-  tipoMensagem = ''; // Define se o CSS da mensagem será de erro ou sucesso
+  tipoMensagem = '';
 
   constructor(private usuarioService: UsuarioService, private router: Router) {}
 
   cadastrar() {
-    this.mensagem = ''; // Limpa mensagens anteriores
-
-    // 1. Validação do Frontend
-    if (!this.nome || !this.email || !this.senha || !this.confirmarSenha) {
-      this.mostrarMensagem('Por favor, preencha todos os campos!', 'mensagem-erro');
+    if (!this.nome || !this.email || !this.senha) {
+      this.mensagem = 'Preencha todos os campos!';
+      this.tipoMensagem = 'mensagem-erro';
       return;
     }
-
     if (this.senha !== this.confirmarSenha) {
-      this.mostrarMensagem('As senhas não coincidem!', 'mensagem-erro');
+      this.mensagem = 'As senhas não coincidem!';
+      this.tipoMensagem = 'mensagem-erro';
       return;
     }
 
-    // 2. Operação READ: Verifica se o e-mail já existe na API
-    this.usuarioService.getUsuarios(this.email).subscribe(usuariosEncontrados => {
-      
-      if (usuariosEncontrados.length > 0) {
-        this.mostrarMensagem('Este e-mail já está em uso!', 'mensagem-erro');
-      } else {
-        
-        // 3. Monta o objeto do novo usuário
-        const novoUsuario = {
-          nome: this.nome,
-          email: this.email,
-          senha: this.senha
-        };
+    const novoUsuario = {
+      nome: this.nome,
+      email: this.email,
+      senha: this.senha
+    };
 
-        // 4. Operação CREATE: Salva no banco de dados via API
-        this.usuarioService.createUsuario(novoUsuario).subscribe({
-          next: () => {
-            this.mostrarMensagem('Conta criada com sucesso! Redirecionando...', 'mensagem-sucesso');
-            
-            // Aguarda 2 segundos e manda para o login
-            setTimeout(() => {
-              this.router.navigate(['/login']);
-            }, 2000);
-          },
-          error: (erro) => {
-            console.error("Erro na API:", erro);
-            this.mostrarMensagem('Erro ao conectar com o servidor.', 'mensagem-erro');
-          }
-        });
+    this.usuarioService.cadastrar(novoUsuario).subscribe({
+      next: (resposta: any) => {
+        // Salva os dados no navegador para a tela de Perfil saber quem está logado
+        localStorage.setItem('usuarioLogado', JSON.stringify(resposta));
+        this.router.navigate(['/perfil']); // Vai direto pro perfil!
+      },
+      error: () => {
+        this.mensagem = 'Erro ao conectar com o JSON Server.';
+        this.tipoMensagem = 'mensagem-erro';
       }
     });
-  }
-
-  voltarLogin() {
-    this.router.navigate(['/login']);
-  }
-
-  mostrarMensagem(texto: string, classeCSS: string) {
-    this.mensagem = texto;
-    this.tipoMensagem = classeCSS;
   }
 }

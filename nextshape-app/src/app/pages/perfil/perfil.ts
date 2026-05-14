@@ -1,87 +1,63 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { UsuarioService } from '../../services/usuario';
+import { Router, RouterLink } from '@angular/router';
+import { UsuarioService } from '../../../services/usuario.service';
 
 @Component({
   selector: 'app-perfil',
   standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './perfil.component.html',
-  styleUrls: ['./perfil.component.css']
+  imports: [FormsModule, RouterLink],
+  templateUrl: './perfil.html',
+  styleUrls: ['./perfil.css']
 })
 export class PerfilComponent implements OnInit {
-  usuarioLogado: any = null;
+  usuario: any = null;
   novaSenha = '';
-  
   mensagem = '';
   tipoMensagem = '';
 
   constructor(private usuarioService: UsuarioService, private router: Router) {}
 
   ngOnInit() {
-    // Recupera os dados do usuário que fez o login
-    const usuarioStore = localStorage.getItem('usuarioLogado');
-    
-    if (usuarioStore) {
-      this.usuarioLogado = JSON.parse(usuarioStore);
+    // Ao carregar a página, ele busca quem está logado
+    const userStr = localStorage.getItem('usuarioLogado');
+    if (userStr) {
+      this.usuario = JSON.parse(userStr);
     } else {
-      // Se tentar acessar o perfil sem estar logado, joga de volta pro login
-      this.router.navigate(['/login']);
+      this.router.navigate(['/login']); // Se não tiver ninguém, volta pro login
     }
   }
 
-  atualizarSenha() {
-    if (!this.novaSenha) {
-      this.mostrarMensagem('Digite a nova senha para atualizar!', 'mensagem-erro');
-      return;
-    }
-
-    // Operação UPDATE: Atualiza apenas o campo "senha" do usuário logado
-    this.usuarioService.updateUsuario(this.usuarioLogado.id, { senha: this.novaSenha }).subscribe({
+  alterarSenha() {
+    if (!this.novaSenha) return;
+    
+    this.usuario.senha = this.novaSenha;
+    
+    this.usuarioService.atualizar(this.usuario.id, this.usuario).subscribe({
       next: () => {
-        this.mostrarMensagem('Senha atualizada com sucesso!', 'mensagem-sucesso');
-        
-        // Atualiza a informação no navegador também
-        this.usuarioLogado.senha = this.novaSenha;
-        localStorage.setItem('usuarioLogado', JSON.stringify(this.usuarioLogado));
-        
-        this.novaSenha = ''; // Limpa o campo
-      },
-      error: (erro) => {
-        console.error("Erro na API:", erro);
-        this.mostrarMensagem('Erro ao atualizar a senha.', 'mensagem-erro');
+        localStorage.setItem('usuarioLogado', JSON.stringify(this.usuario));
+        this.mensagem = 'Senha alterada com sucesso!';
+        this.tipoMensagem = 'mensagem-sucesso';
+        this.novaSenha = '';
       }
     });
   }
 
   deletarConta() {
-    // Alerta de confirmação antes de excluir
-    if (confirm('Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita.')) {
-      
-      // Operação DELETE: Remove o usuário do banco de dados
-      this.usuarioService.deleteUsuario(this.usuarioLogado.id).subscribe({
+    const confirmacao = confirm('Tem certeza que deseja deletar sua conta? Essa ação não tem volta.');
+    if (confirmacao) {
+      this.usuarioService.deletar(this.usuario.id).subscribe({
         next: () => {
-          alert('Conta excluída com sucesso.');
-          this.fazerLogout();
-        },
-        error: (erro) => {
-          console.error("Erro na API:", erro);
-          this.mostrarMensagem('Erro ao excluir a conta.', 'mensagem-erro');
+          localStorage.removeItem('usuarioLogado');
+          alert('Sua conta foi excluída.');
+          this.router.navigate(['/']); // Volta para a Home
         }
       });
     }
   }
 
-  fazerLogout() {
-    // Limpa a memória do navegador e volta pro login
+  sair() {
     localStorage.removeItem('usuarioLogado');
     this.router.navigate(['/login']);
-  }
-
-  mostrarMensagem(texto: string, classeCSS: string) {
-    this.mensagem = texto;
-    this.tipoMensagem = classeCSS;
   }
 }
